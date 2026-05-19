@@ -13,6 +13,8 @@
     "@google/genai": "^2.3.0",
     "@supabase/supabase-js": "^2.105.4",
     "@tailwindcss/vite": "^4.1.18",
+    "lucide-react": "^1.16.0",
+    "motion": "^12.39.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.15.1",
