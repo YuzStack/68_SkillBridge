@@ -4,37 +4,42 @@ import {
   TargetIcon,
   ArrowRightIcon,
   ChevronRightIcon,
-  Link,
 } from 'lucide-react';
+import { Link } from 'react-router';
+import { useUser } from '../../authentication/hooks/useUser'; // Import tracking hooks
+import Spinner from '../../../components/Spinner';
 
-const historyData = [
+const historyPlaceholder = [
   {
     id: 1,
-    date: 'Oct 12, 2023',
-    discipline: 'Software Engineering',
-    match: 85,
-  },
-  {
-    id: 2,
-    date: 'Sep 28, 2023',
-    discipline: 'Data Analysis',
-    match: 62,
-  },
-  {
-    id: 3,
-    date: 'Aug 15, 2023',
-    discipline: 'Product Management',
-    match: 74,
+    date: 'May 18, 2026',
+    discipline: 'Frontend Engineering',
+    match: 92,
   },
 ];
 
 export default function HomePage() {
+  const { profile, isLoading } = useUser();
+
+  if (isLoading) {
+    return (
+      <div className='flex h-full items-center justify-center p-12'>
+        <Spinner />
+      </div>
+    );
+  }
+
+  // Split name to display only the first name beautifully in greeting parameters
+  const firstName = profile?.full_name
+    ? profile.full_name.split(' ')[0]
+    : 'Scholar';
+
   return (
     <div className='mx-auto max-w-7xl space-y-6 p-4 md:p-8'>
-      {/* Block 1: Welcome Banner */}
+      {/* Block 1: Real-time Welcome Banner */}
       <div className='bg-canvas-panel border-border-subtle rounded-2xl border p-6 shadow-sm md:p-8'>
         <h1 className='text-brand-dark mb-2 text-2xl font-bold md:text-3xl'>
-          Welcome back, Zimbiat
+          Welcome back, {firstName}
         </h1>
         <p className='text-brand-muted mb-6'>
           Here is what's happening with your career progression today.
@@ -45,7 +50,6 @@ export default function HomePage() {
             className='text-feedback-warning mt-0.5 shrink-0'
             size={20}
           />
-
           <div>
             <h3 className='text-feedback-warning text-sm font-semibold'>
               Career Blueprint Locked
@@ -75,8 +79,7 @@ export default function HomePage() {
             to='/skill-selector'
             className='bg-brand-primary hover:bg-brand-primary/90 inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 font-medium text-white transition-colors'
           >
-            Start Manual Test
-            <ArrowRightIcon size={18} />
+            Start Manual Test <ArrowRightIcon size={18} />
           </Link>
         </div>
 
@@ -93,10 +96,9 @@ export default function HomePage() {
           </p>
           <Link
             to='/cv-upload'
-            className='bg-canvas-panel border-border-subtle text-brand-dark hover:border-brand-primary hover:text-brand-primary inline-flex w-full items-center justify-center gap-2 rounded-lg border px-4 py-3 font-medium transition-colors'
+            className='bg-canvas-panel border-border-subtle text-brand-dark hover:bg-brand-primary hover:text-brand-primary inline-flex w-full items-center justify-center gap-2 rounded-lg border px-4 py-3 font-medium transition-colors'
           >
-            Upload Document
-            <ArrowRightIcon size={18} />
+            Upload Document <ArrowRightIcon size={18} />
           </Link>
         </div>
       </div>
@@ -111,7 +113,6 @@ export default function HomePage() {
             View all
           </button>
         </div>
-
         <div className='overflow-x-auto'>
           <table className='w-full border-collapse text-left'>
             <thead>
@@ -123,7 +124,7 @@ export default function HomePage() {
               </tr>
             </thead>
             <tbody className='divide-border-subtle divide-y'>
-              {historyData.map(row => (
+              {historyPlaceholder.map(row => (
                 <tr
                   key={row.id}
                   className='hover:bg-canvas-inset/50 transition-colors'
@@ -135,9 +136,7 @@ export default function HomePage() {
                     {row.discipline}
                   </td>
                   <td className='px-6 py-4 text-sm whitespace-nowrap'>
-                    <span
-                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium ${row.match >= 70 ? 'bg-feedback-success/10 text-feedback-success' : 'bg-feedback-warning/10 text-feedback-warning'}`}
-                    >
+                    <span className='bg-feedback-success/10 text-feedback-success inline-flex items-center rounded-full px-2.5 py-0.5 font-medium'>
                       {row.match}%
                     </span>
                   </td>
@@ -146,8 +145,7 @@ export default function HomePage() {
                       to='/roadmap'
                       className='text-brand-primary inline-flex items-center gap-1 font-medium hover:underline'
                     >
-                      View Roadmap
-                      <ChevronRightIcon size={16} />
+                      View Roadmap <ChevronRightIcon size={16} />
                     </Link>
                   </td>
                 </tr>

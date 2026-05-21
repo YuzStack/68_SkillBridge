@@ -11,6 +11,7 @@ import TestingArena from './features/skill-assessment/pages/TestingArena';
 import RecommendationsPage from './features/career-recommendation/pages/RecommendationsPage';
 import RoadmapView from './features/career-recommendation/pages/RoadmapView';
 import HomePage from './features/dashboard/pages/HomePage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const routes = [
   // PUBLIC ROUTES
@@ -20,7 +21,11 @@ const routes = [
 
   // PRIVATE ROUTES
   {
-    element: <AppLayout />,
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/settings', element: <Settings /> },
