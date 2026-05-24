@@ -53,7 +53,6 @@ export default function Login() {
               {...register('email', { required: 'Email is required' })}
               className={`bg-canvas-inset border-border-subtle text-brand-dark w-full rounded-lg border px-4 py-2.5 transition-colors focus:outline-none ${errors.email ? 'border-feedback-danger focus:border-feedback-danger' : 'focus:border-border-focus'}`}
               placeholder='Enter your email'
-              defaultValue='nasrudeenyuusuf@gmail.com' // For Dev Purpose
             />
             {errors.email && (
               <p className='text-feedback-danger mt-1 text-xs'>
@@ -79,7 +78,6 @@ export default function Login() {
               {...register('password', { required: 'Password is required' })}
               className={`bg-canvas-inset border-border-subtle text-brand-dark w-full rounded-lg border px-4 py-2.5 transition-colors focus:outline-none ${errors.password ? 'border-feedback-danger focus:border-feedback-danger' : 'focus:border-border-focus'}`}
               placeholder='••••••••'
-              defaultValue='@Yuzlov3' // For Dev Purpose
             />
             {errors.password && (
               <p className='text-feedback-danger mt-1 text-xs'>

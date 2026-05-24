@@ -47,4 +47,4 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 );
 
-window.__TANSTACK_QUERY_CLIENT__ = queryClient; // For Dev Purpose
+// window.__TANSTACK_QUERY_CLIENT__ = queryClient; // For Dev Purpose
