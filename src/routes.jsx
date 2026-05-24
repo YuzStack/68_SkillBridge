@@ -12,12 +12,14 @@ import RecommendationsPage from './features/career-recommendation/pages/Recommen
 import RoadmapView from './features/career-recommendation/pages/RoadmapView';
 import HomePage from './features/dashboard/pages/HomePage';
 import ProtectedRoute from './components/ProtectedRoute';
+import ResetPassword from './features/authentication/pages/ResetPassword';
 
 const routes = [
   // PUBLIC ROUTES
   { path: '/signup', element: <Signup /> },
   { path: '/login', element: <Login /> },
   { path: '/forgot-password', element: <ForgotPassword /> },
+  { path: '/reset-password', element: <ResetPassword /> },
 
   // PRIVATE ROUTES
   {

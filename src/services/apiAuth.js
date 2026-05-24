@@ -139,3 +139,18 @@ export async function deleteUserAccountComplete() {
     if (authDeleteError) throw new Error(authDeleteError.message);
   }
 }
+
+/**
+ * Triggers a secure password recovery email via Supabase Auth
+ */
+export async function sendPasswordResetEmail(email) {
+  // Route the inbox link directly to the clean public reset page
+  const redirectToUrl = `${window.location.origin}/reset-password`;
+
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: redirectToUrl,
+  });
+
+  if (error) throw new Error(error.message);
+  return data;
+}

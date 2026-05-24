@@ -6,6 +6,7 @@ import {
   uploadAvatarImage,
   updateUserPassword,
   deleteUserAccountComplete,
+  sendPasswordResetEmail,
 } from '../../../services/apiAuth';
 
 export function useUpdateSettings() {
@@ -51,4 +52,13 @@ export function useUpdateSettings() {
     deleteAccount,
     isDeleting,
   };
+}
+
+/**
+ * React Query mutation managing the recovery dispatch lifecycle state
+ */
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: sendPasswordResetEmail,
+  });
 }
