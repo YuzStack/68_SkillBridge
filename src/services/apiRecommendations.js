@@ -143,3 +143,16 @@ export async function updateRoadmapProgress({ roadmapId, updatedMilestones }) {
   if (error) throw new Error(error.message);
   return data;
 }
+
+/**
+ * 6. Completely removes an assessment record row out of Supabase PostgreSQL
+ */
+export async function deleteAssessmentRecord(assessmentId) {
+  const { data, error } = await supabase
+    .from('assessments')
+    .delete()
+    .eq('id', assessmentId);
+
+  if (error) throw new Error(error.message);
+  return data;
+}
