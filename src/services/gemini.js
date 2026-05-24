@@ -8,23 +8,28 @@ if (!apiKey) {
   );
 }
 
-const genAI = new GoogleGenAI({ apiKey });
+export const genAI = new GoogleGenAI({ apiKey });
 
-// Helper to enforce clean JSON formatting out of the API
 const JSON_CLEAN_REGEX = /^```json\s+|\s+```$/g;
 
 /**
- * Generates an automated, dynamic multi-choice quiz based on targeted skills
+ * Generates an automated, dynamic multi-choice quiz with adaptive volume
  */
 export async function generateAssessmentQuestions(selectedSkills) {
+  // Calculate dynamic constraints based on the size of the chosen array
+  const skillCount = selectedSkills.length;
+  const questionsPerSkill = skillCount <= 2 ? 5 : 3;
+
   const prompt = `
-    You are an expert technical interviewer. Generate an assessment exam to test proficiency.
+    You are an expert technical interviewer. Generate an assessment exam to test professional proficiency.
     SKILLS TO TEST: ${selectedSkills.join(', ')}
 
-    Generate exactly 2 high-quality Multiple Choice Questions (MCQs) per skill listed.
-    Each question must have 4 distinct, plausible options, an explicit zero-indexed correct answer, and an educational explanation.
+    CRITICAL INSTRUCTION: Because the student selected exactly ${skillCount} skill(s), you MUST generate exactly ${questionsPerSkill} high-quality Multiple Choice Questions (MCQs) for EACH individual skill listed. 
+    Total questions in your output array must be exactly ${skillCount * questionsPerSkill}.
 
-    Return ONLY a raw JSON array matching this exact schema layout without markdown formatting tags:
+    Each question must have 4 distinct, plausible options, an explicit zero-indexed correct answer, and a clear educational explanation.
+
+    Return ONLY a raw JSON array matching this exact schema layout without markdown formatting tags or code block fences:
     [
       {
         "id": 1,
@@ -39,7 +44,7 @@ export async function generateAssessmentQuestions(selectedSkills) {
 
   try {
     const response = await genAI.models.generateContent({
-      model: 'gemini-2.5-flash', // Using the stable production-ready flash model
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
 
@@ -47,6 +52,6 @@ export async function generateAssessmentQuestions(selectedSkills) {
     return JSON.parse(cleanText);
   } catch (error) {
     console.error('Gemini Generation Error:', error);
-    throw new Error('Failed to compile assessment parameters.');
+    throw new Error('Failed to compile adaptive assessment parameters.');
   }
 }

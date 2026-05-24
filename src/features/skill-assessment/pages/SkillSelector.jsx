@@ -61,6 +61,12 @@ export default function SkillSelector() {
     );
   };
 
+  const handleProceed = () => {
+    if (selectedSkills.length === 0) return;
+    // Pass the selected skills into the router state history buffer safely
+    navigate('/assessment', { state: { skills: selectedSkills } });
+  };
+
   return (
     <div className='mx-auto max-w-5xl p-4 pb-32 md:p-8'>
       <div className='mb-8'>
@@ -68,7 +74,8 @@ export default function SkillSelector() {
           Interactive Skill Triage
         </h1>
         <p className='text-brand-muted mt-1'>
-          Select the skills you currently possess to tailor your assessment.
+          Select the skills you currently possess to tailor your automated
+          assessment parameters.
         </p>
       </div>
 
@@ -85,7 +92,11 @@ export default function SkillSelector() {
                   <button
                     key={skill}
                     onClick={() => toggleSkill(skill)}
-                    className={`inline-flex cursor-pointer items-center rounded-full border px-4 py-2 transition-all ${isSelected ? 'bg-brand-primary border-brand-primary text-white shadow-sm' : 'bg-canvas-inset border-border-subtle text-brand-dark hover:border-brand-primary hover:bg-canvas-panel'}`}
+                    className={`inline-flex cursor-pointer items-center rounded-full border px-4 py-2 transition-all ${
+                      isSelected
+                        ? 'bg-brand-primary border-brand-primary text-white shadow-sm'
+                        : 'bg-canvas-inset border-border-subtle text-brand-dark hover:border-brand-primary hover:bg-canvas-panel'
+                    }`}
                   >
                     {skill}
                   </button>
@@ -106,9 +117,13 @@ export default function SkillSelector() {
             skills selected
           </div>
           <button
-            onClick={() => navigate('/assessment')}
+            onClick={handleProceed}
             disabled={selectedSkills.length === 0}
-            className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors ${selectedSkills.length > 0 ? 'bg-brand-primary hover:bg-brand-primary/90 text-white' : 'bg-canvas-inset text-brand-muted border-border-subtle cursor-not-allowed border'}`}
+            className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors ${
+              selectedSkills.length > 0
+                ? 'bg-brand-primary hover:bg-brand-primary/90 cursor-pointer text-white'
+                : 'bg-canvas-inset text-brand-muted border-border-subtle cursor-not-allowed border'
+            }`}
           >
             Continue to Assessment
             <ArrowRightIcon size={18} />
