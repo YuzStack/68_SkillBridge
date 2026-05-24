@@ -29,3 +29,12 @@
   --color-feedback-warning: #f59e0b; /* Amber for technical skill gaps */
   --color-feedback-danger: #ef4444; /* Rose for system errors or alerts */
 }
+
+@keyframes loading-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
