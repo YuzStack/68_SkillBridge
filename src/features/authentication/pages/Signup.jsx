@@ -115,7 +115,7 @@ export default function Signup() {
             <input
               type='password'
               {...register('passwordConfirm', {
-                required: 'This field is required',
+                required: 'Please confirm password',
                 validate: value =>
                   value === getValues().password || 'Passwords need to match',
               })}
